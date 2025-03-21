@@ -1,7 +1,7 @@
 import { Image, Pressable, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useRouter } from 'expo-router'
 import Feather from '@expo/vector-icons/Feather'
+import { useRouter } from 'expo-router'
 
 type Props = {
 	id: string
@@ -33,7 +33,7 @@ export default function CardEvent({
 	if (variant === 'sm') {
 		return (
 			<Pressable
-				onPress={() => router.push(`/`)}
+				onPress={() => router.push(`/event/${id}`)}
 				className='h-[220px] w-[200px] rounded-2xl bg-backgroundCard flex-col overflow-hidden'
 			>
 				<View className='h-10 px-2 w-full flex-row items-center justify-between'>
@@ -42,15 +42,6 @@ export default function CardEvent({
 							<Text>{username.at(0)}</Text>
 						</View>
 						<Text className='text-sm text-white'>{username}</Text>
-					</View>
-					<View className='flex-row gap-2 items-center'>
-						<Feather
-							name='edit-2'
-							size={16}
-							color='#fff'
-							className='opacity-50'
-						/>
-						<Text className='text-white/50'>Ubah</Text>
 					</View>
 				</View>
 				<View className='w-full h-[180px] relative'>
@@ -85,22 +76,16 @@ export default function CardEvent({
 		)
 	}
 	return (
-		<View className='rounded-3xl bg-backgroundCard h-[200px] w-full px-3.5 py-4'>
+		<Pressable
+			onPress={() => router.push(`/event/${id}`)}
+			className='rounded-3xl bg-backgroundCard h-[200px] w-full px-3.5 py-4'
+		>
 			<View className='h-6 w-full flex-row items-center justify-between'>
 				<View className='flex-row gap-2 items-center'>
 					<View className='h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center'>
 						<Text>{username.at(0)}</Text>
 					</View>
 					<Text className='text-sm text-white'>{username}</Text>
-				</View>
-				<View className='flex-row gap-2 items-center'>
-					<Feather
-						name='edit-2'
-						size={16}
-						color='#fff'
-						className='opacity-50'
-					/>
-					<Text className='text-white/50'>Ubah</Text>
 				</View>
 			</View>
 			<View className='gap-4 items-center flex-row mt-3.5' style={{ flex: 2 }}>
@@ -145,6 +130,6 @@ export default function CardEvent({
 					</View>
 				</View>
 			</View>
-		</View>
+		</Pressable>
 	)
 }

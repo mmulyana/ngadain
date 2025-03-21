@@ -1,10 +1,11 @@
 import { Image, View } from 'react-native'
 import { Link } from 'expo-router'
+
 import Logo from '@/shared/component/logo'
 
 export default function AuthHeader() {
 	return (
-		<View className='h-9'>
+		<View className='h-9 mt-6'>
 			<View className='flex-row items-center justify-center relative'>
 				<Link href='/' className='absolute left-0'>
 					<Image

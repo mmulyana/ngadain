@@ -1,6 +1,7 @@
 import { FlatList, Text, View } from 'react-native'
-import CardEvent from './card-event'
 import { Link } from 'expo-router'
+
+import CardEvent from './card-event'
 
 export default function JoinedEvent() {
 	const events = [

@@ -1,6 +1,7 @@
-import Categories from '@/shared/component/categories'
+import { Text, View } from 'react-native'
 import { Link } from 'expo-router'
-import { FlatList, ScrollView, Text, View } from 'react-native'
+
+import Categories from '@/shared/component/categories'
 import CardEvent from './card-event'
 
 export default function LatestEvent() {
@@ -59,17 +60,11 @@ export default function LatestEvent() {
 				</Link>
 			</View>
 			<Categories />
-			<FlatList
-				data={events}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => <CardEvent {...item} />}
-				contentContainerStyle={{
-					gap: 12,
-					paddingHorizontal: 24,
-					paddingBottom: 80,
-				}}
-				style={{ maxHeight: 500 }}
-			/>
+			<View className='gap-2 px-6'>
+				{events.map((item) => (
+					<CardEvent key={item.id} {...item} />
+				))}
+			</View>
 		</View>
 	)
 }

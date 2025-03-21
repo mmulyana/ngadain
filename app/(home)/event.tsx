@@ -1,26 +1,29 @@
-import { Text, View } from 'react-native'
-
-import Categories from '@/shared/component/categories'
-import Header from '@/shared/component/header'
+import { ScrollView, View } from 'react-native'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
-import MyEvent from '@/features/event/component/my-event'
-import LatestEvent from '@/features/event/component/latest-event'
-import ButtonAdd from '@/features/event/component/button-add'
-import { StatusBar } from 'expo-status-bar'
+import Categories from '@/shared/component/categories'
+import Header from '@/shared/component/header'
 import { Color } from '@/shared/constants/Color'
 
+import LatestEvent from '@/features/event/component/latest-event'
+import ButtonAdd from '@/features/event/component/button-add'
+import MyEvent from '@/features/event/component/my-event'
+import { useRouter } from 'expo-router'
+
 export default function Event() {
+	const router = useRouter()
+
 	return (
 		<SafeAreaContainer>
-			<View className='flex-1 bg-background gap-6'>
-				<Header />
-				<Categories />
-				<MyEvent />
-				<LatestEvent />
-				<ButtonAdd />
+			<View style={{ flex: 1, backgroundColor: Color.Background }}>
+				<ScrollView contentContainerStyle={{ paddingBottom: 20, gap: 16 }}>
+					<Header />
+					<Categories />
+					<MyEvent />
+					<LatestEvent />
+				</ScrollView>
+				<ButtonAdd onPress={() => router.push('/new-event')} />
 			</View>
-			{/* <StatusBar backgroundColor={Color.BackgroundInput} style='light' /> */}
 		</SafeAreaContainer>
 	)
 }

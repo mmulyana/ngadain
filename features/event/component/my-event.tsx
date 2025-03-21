@@ -1,6 +1,7 @@
-import CardEvent from '@/features/home/component/card-event'
-import { Link } from 'expo-router'
 import { FlatList, Text, View } from 'react-native'
+import { Link } from 'expo-router'
+
+import CardEvent from '@/features/home/component/card-event'
 
 export default function MyEvent() {
 	const events = [

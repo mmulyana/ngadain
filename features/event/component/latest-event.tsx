@@ -1,5 +1,5 @@
 import CardEvent from '@/features/home/component/card-event'
-import { FlatList, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 
 export default function LatestEvent() {
 	const events = [
@@ -53,17 +53,11 @@ export default function LatestEvent() {
 			<View className='flex-row justify-between items-center w-full px-6'>
 				<Text className='text-base text-white'>Event Terbaru</Text>
 			</View>
-			<FlatList
-				data={events}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => <CardEvent {...item} />}
-				contentContainerStyle={{
-					gap: 12,
-					paddingHorizontal: 24,
-					paddingBottom: 80,
-				}}
-				style={{ maxHeight: 500 }}
-			/>
+			<View className='gap-2 px-6'>
+				{events.map((item) => (
+					<CardEvent key={item.id} {...item} />
+				))}
+			</View>
 		</View>
 	)
 }

@@ -1,16 +1,39 @@
-import { Color } from '@/shared/constants/Color'
+import { Text, TouchableOpacity, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
-import { Text, View } from 'react-native'
 
-export default function ButtonAdd() {
+import { Color } from '@/shared/constants/Color'
+
+type Props = {
+	onPress: () => void
+}
+export default function ButtonAdd({ onPress }: Props) {
 	return (
-		<View className='absolute w-full flex-row justify-center bottom-4 left-0'>
-			<View className='bg-dark rounded-full py-3 px-3 flex-row items-center gap-1'>
+		<TouchableOpacity
+			style={{
+				position: 'absolute',
+				bottom: 20,
+				left: 0,
+				right: 0,
+				alignItems: 'center',
+			}}
+			activeOpacity={0.8}
+			onPress={onPress}
+		>
+			<View
+				style={{
+					backgroundColor: Color.BackgroundInput,
+					borderRadius: 30,
+					flexDirection: 'row',
+					alignItems: 'center',
+					paddingVertical: 12,
+					paddingHorizontal: 16,
+				}}
+			>
 				<Feather name='plus' size={16} color={Color.Primary} />
-				<View className='px-1'>
-					<Text className='text-primary shadow-lg'>Tambah Event</Text>
-				</View>
+				<Text style={{ color: Color.Primary, marginLeft: 8 }}>
+					Tambah Event
+				</Text>
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }

@@ -1,6 +1,7 @@
-import Logo from '@/shared/component/logo'
-import { Link } from 'expo-router'
 import { ImageBackground, Text, View } from 'react-native'
+import { Link } from 'expo-router'
+
+import Logo from '@/shared/component/logo'
 
 export default function Index() {
 	return (
@@ -11,7 +12,7 @@ export default function Index() {
 			<View className='flex-col justify-end items-center gap-6 pb-10'>
 				<Logo />
 				<Text className='text-2xl font-medium text-white max-w-[160px] text-center'>
-					Selamat datang di ngadain
+					Selamat datang di Ngadain
 				</Text>
 				<Text className='text-white text-center opacity-50 text-lg'>
 					Tempatnya buat bikin dan ikut event dengan mudah, perluas networking,

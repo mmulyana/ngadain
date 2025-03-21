@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
 import Header from '@/shared/component/header'
@@ -9,11 +9,13 @@ import LatestEvent from '@/features/home/component/latest-event'
 export default function Home() {
 	return (
 		<SafeAreaContainer>
-			<View className='flex-1 bg-background gap-6 flex-col'>
-				<Header />
-				<JoinedEvent />
-				<LatestEvent />
-			</View>
+			<ScrollView>
+				<View className='flex-1 bg-background gap-6 flex-col pb-5'>
+					<Header />
+					<JoinedEvent />
+					<LatestEvent />
+				</View>
+			</ScrollView>
 		</SafeAreaContainer>
 	)
 }
