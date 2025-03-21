@@ -1,8 +1,8 @@
-import { FlatList, Text, View } from 'react-native'
-import CardEvent from './card-event'
+import CardEvent from '@/features/home/component/card-event'
 import { Link } from 'expo-router'
+import { FlatList, Text, View } from 'react-native'
 
-export default function JoinedEvent() {
+export default function MyEvent() {
 	const events = [
 		{
 			id: '1',
@@ -13,6 +13,7 @@ export default function JoinedEvent() {
 			username: 'John Doe',
 			userPhotoUrl: '',
 			variant: 'sm',
+			showEdit: true,
 		},
 		{
 			id: '2',
@@ -23,12 +24,13 @@ export default function JoinedEvent() {
 			username: 'Jane Smith',
 			userPhotoUrl: '',
 			variant: 'sm',
+			showEdit: true,
 		},
 	]
 	return (
 		<View>
 			<View className='flex-row justify-between items-center w-full mb-6 px-6'>
-				<Text className='text-base text-white'>Event yang saya ikuti</Text>
+				<Text className='text-base text-white'>Event saya</Text>
 				<Link href='/' className='text-primary'>
 					Lihat semua
 				</Link>

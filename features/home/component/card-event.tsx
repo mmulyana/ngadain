@@ -56,9 +56,11 @@ export default function CardEvent({
 					/>
 					<View className='flex-col justify-between px-4 py-4 absolute h-full w-full'>
 						<View className='flex-row justify-end'>
-							<View className='rounded-full bg-background px-3 py-1'>
-								<Text className='text-primary'>8 hari lagi</Text>
-							</View>
+							{!showEdit && (
+								<View className='rounded-full bg-background px-3 py-1'>
+									<Text className='text-primary'>8 hari lagi</Text>
+								</View>
+							)}
 						</View>
 						<View className='flex-col items-start gap-2'>
 							<View className='bg-background/[0.16] rounded-full blur-md px-3 py-1'>
