@@ -1,13 +1,18 @@
 import { Pressable, Text, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
 import { Color } from '@/shared/constants/Color'
+import { useRouter } from 'expo-router'
 
 export default function UserInfo() {
+	const router = useRouter()
 	return (
 		<View className='px-6 mt-6 gap-6'>
 			<View className='flex-row justify-between items-center'>
 				<Text className='text-lg text-white'>Profil</Text>
-				<Pressable className='flex-row gap-2 items-center'>
+				<Pressable
+					onPress={() => router.push('/edit-profile')}
+					className='flex-row gap-2 items-center'
+				>
 					<Feather name='edit-2' size={16} color={Color.Primary} />
 					<Text className='text-primary'>Ubah</Text>
 				</Pressable>
