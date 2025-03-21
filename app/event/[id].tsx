@@ -1,30 +1,111 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
-import { Image, View } from 'react-native'
+import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
+import Feather from '@expo/vector-icons/Feather'
+import { Color } from '@/shared/constants/Color'
 
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
 
 	return (
 		<SafeAreaContainer>
-			<View className='flex-1 bg-background'>
-				<View className='relative'>
-					<Image
-						source={require('@/assets/images/dummy.png')}
-						className='w-full'
-						style={{ height: 280 }}
-					/>
-					<LinearGradient
-						colors={['rgba(33,33,35,0.8)', 'rgba(33,33,35,0.04)']}
-						start={{ x: 0, y: 1 }}
-						end={{ x: 0, y: 0 }}
-						className='absolute bottom-0 left-0 right-0'
-						style={{ height: 280 }}
-					/>
+			<ScrollView className='flex-1 bg-background'>
+				<View className='flex-1 pb-10'>
+					<View className='relative'>
+						<Image
+							source={require('@/assets/images/dummy.png')}
+							className='w-full'
+							style={{ height: 280 }}
+						/>
+						<LinearGradient
+							colors={['rgba(33,33,35,0.8)', 'rgba(33,33,35,0.04)']}
+							start={{ x: 0, y: 1 }}
+							end={{ x: 0, y: 0 }}
+							className='absolute bottom-0 left-0 right-0'
+							style={{ height: 280 }}
+						/>
+						<View className='absolute w-full flex-row justify-between top-4 px-6'>
+							<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
+								<Feather name='x' size={20} color={Color.Dark} />
+							</Pressable>
+							<View className='flex-row gap-4 items-center'>
+								<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
+									<Feather name='edit-2' size={20} color={Color.Dark} />
+								</Pressable>
+								<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
+									<Feather name='bar-chart' size={20} color={Color.Dark} />
+								</Pressable>
+							</View>
+						</View>
+						<View className='absolute w-full flex items-start gap-2 justify-between bottom-4 px-6'>
+							<View className='bg-white/20 rounded-full blur-md px-3 py-1'>
+								<Text className='text-white text-base'>Teknologi</Text>
+							</View>
+							<Text className='text-xl text-white'>
+								Jogjajs meetup february 2023
+							</Text>
+						</View>
+					</View>
+
+					<View className='gap-6 px-6 pt-6'>
+						<View className='gap-4'>
+							<Text className='text-white/50 text-base'>Penyelenggara</Text>
+							<View className='flex-row gap-2 items-center'>
+								<View className='h-10 w-10 rounded-full bg-backgroundInput'></View>
+								<Text className='text-white text-base'>Jogjajs</Text>
+							</View>
+						</View>
+
+						<View className='gap-4'>
+							<Text className='text-white/50 text-base'>Deskripsi</Text>
+							<Text className='text-white text-base'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+								atque enim nulla ipsum non aspernatur minus deleniti provident
+								quod temporibus sapiente quidem unde porro quas laborum quis,
+								iusto ipsa quisquam.
+							</Text>
+						</View>
+
+						<View className='flex-row gap-4 items-center'>
+							<Feather
+								name='map-pin'
+								size={20}
+								color='#fff'
+								style={{ opacity: 0.5 }}
+							/>
+							<Text className='text-base text-white'>
+								Jl. Paraenom No 15, Patangpuluhan, Wirobrajan, Yogyakarta
+							</Text>
+						</View>
+
+						<View className='flex-row gap-4 items-center'>
+							<Feather
+								name='calendar'
+								size={20}
+								color='#fff'
+								style={{ opacity: 0.5 }}
+							/>
+							<Text className='text-base text-white'>2 Februari 2023</Text>
+						</View>
+						<View className='flex-row gap-4 items-center'>
+							<Feather
+								name='users'
+								size={20}
+								color='#fff'
+								style={{ opacity: 0.5 }}
+							/>
+							<Text className='text-base text-white'>200 Pendaftar</Text>
+						</View>
+
+						<View className='gap-4'>
+							<Text className='text-white/50 text-base'>Dokumentasi</Text>
+							<View style={{ flex: 4, gap: 4 }}></View>
+						</View>
+					</View>
 				</View>
-			</View>
+			</ScrollView>
 		</SafeAreaContainer>
 	)
 }
