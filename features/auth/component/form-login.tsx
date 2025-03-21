@@ -160,7 +160,7 @@ export default function FormLogin() {
 
 	return (
 		<View className='flex-1 gap-4 mt-10'>
-			<Text className='text-lg text-white mt-2'>Masuk</Text>
+			<Text className='text-2xl text-white mb-4'>Masuk</Text>
 			{formSwith[step]}
 			<Pressable
 				onPress={async () => {

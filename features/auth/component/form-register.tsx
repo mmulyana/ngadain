@@ -1,13 +1,15 @@
+import { Image, Pressable, Text, TextInput, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
-import { Image, Pressable, Text, TextInput, View } from 'react-native'
+import { Link, useRouter } from 'expo-router'
 import { useState } from 'react'
 
 import { RegisterSchema, RegisterType } from '../validation'
 import TabItem from './tabItem'
-import { Link } from 'expo-router'
 
 export default function FormRegister() {
+	const router = useRouter()
+
 	const [tab, setTab] = useState<'participant' | 'organizer'>('participant')
 	const [password, setPassword] = useState(true)
 	const [confirmPassword, setConfirmPassword] = useState(true)
@@ -18,6 +20,7 @@ export default function FormRegister() {
 
 	return (
 		<View className='flex-1 gap-4 mt-10'>
+			<Text className='text-2xl text-white mb-4'>Daftar</Text>
 			<View className='flex-2 flex-row'>
 				<TabItem
 					title='Peserta'
@@ -30,9 +33,6 @@ export default function FormRegister() {
 					onPress={() => setTab('organizer')}
 				/>
 			</View>
-			<Text className='text-xl text-white mt-2'>
-				Daftar sebagai {tab === 'organizer' ? 'Penyelenggara' : 'Peserta'}
-			</Text>
 			<View className='flex-col gap-6 mt-4'>
 				<View className='flex-col'>
 					<Controller
@@ -168,9 +168,9 @@ export default function FormRegister() {
 								/>
 								<Pressable
 									className='absolute top-3 right-3'
-									onPress={() => setPassword(!password)}
+									onPress={() => setConfirmPassword(!confirmPassword)}
 								>
-									{password ? (
+									{confirmPassword ? (
 										<Image
 											source={require('@/assets/images/eye.png')}
 											className='h-8 w-8'
@@ -193,10 +193,12 @@ export default function FormRegister() {
 				</View>
 
 				<Pressable
-					onPress={() => {}}
+					onPress={() => router.push('/home')}
 					className='rounded-full bg-primary py-4 mt-6'
 				>
-					<Text className='text-dark text-center font-medium'>Daftar</Text>
+					<Text className='text-dark text-center font-medium'>
+						Daftar sebagai {tab === 'organizer' ? 'Penyelenggara' : 'Peserta'}
+					</Text>
 				</Pressable>
 				<View className='flex gap-1 items-center justify-center flex-row'>
 					<Text className='text-white opacity-50'>Sudah punya akun? </Text>
