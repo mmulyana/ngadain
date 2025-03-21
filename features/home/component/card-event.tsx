@@ -36,11 +36,22 @@ export default function CardEvent({
 				onPress={() => router.push(`/`)}
 				className='h-[220px] w-[200px] rounded-2xl bg-backgroundCard flex-col overflow-hidden'
 			>
-				<View className='h-10 w-full flex-row gap-2 items-center px-2'>
-					<View className='h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center'>
-						<Text>{username.at(0)}</Text>
+				<View className='h-10 px-2 w-full flex-row items-center justify-between'>
+					<View className='flex-row gap-2 items-center'>
+						<View className='h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center'>
+							<Text>{username.at(0)}</Text>
+						</View>
+						<Text className='text-sm text-white'>{username}</Text>
 					</View>
-					<Text className='text-sm text-white'>{username}</Text>
+					<View className='flex-row gap-2 items-center'>
+						<Feather
+							name='edit-2'
+							size={16}
+							color='#fff'
+							className='opacity-50'
+						/>
+						<Text className='text-white/50'>Ubah</Text>
+					</View>
 				</View>
 				<View className='w-full h-[180px] relative'>
 					<Image
