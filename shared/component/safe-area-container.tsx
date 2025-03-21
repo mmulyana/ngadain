@@ -9,7 +9,7 @@ export default function SafeAreaContainer({
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View style={{ flex: 1 }}>{children}</View>
-			<StatusBar backgroundColor={Color.background} />
+			<StatusBar backgroundColor={Color.BackgroundInput} style='light' />
 		</SafeAreaView>
 	)
 }

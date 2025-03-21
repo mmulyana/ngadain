@@ -1,7 +1,7 @@
 export const Color = {
-	primary: '#FFEA4A',
-	dark: '#212123',
-	background: '#212123',
-	backgroundInput: '#161616',
-	border: '#373739',
+	Primary: '#FFEA4A',
+	Dark: '#212123',
+	Background: '#212123',
+	BackgroundInput: '#161616',
+	Border: '#373739',
 }

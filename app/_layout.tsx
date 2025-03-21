@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import { Stack } from 'expo-router'
 import '../global.css'
 
@@ -10,7 +9,6 @@ export default function RootLayout() {
 				<Stack.Screen name='login' />
 				<Stack.Screen name='register' />
 			</Stack>
-			<StatusBar style='auto' />
 		</>
 	)
 }

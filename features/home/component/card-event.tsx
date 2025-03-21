@@ -1,8 +1,7 @@
 import { Image, Pressable, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
-import { Color } from '@/shared/constants/Color'
+import Feather from '@expo/vector-icons/Feather'
 
 type Props = {
 	id: string
