@@ -1,4 +1,4 @@
-import { ImageBackground, Text, View } from 'react-native'
+import { ImageBackground, Pressable, Text, View } from 'react-native'
 import { Link } from 'expo-router'
 
 import Logo from '@/shared/component/logo'

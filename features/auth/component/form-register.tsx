@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 import { RegisterSchema, RegisterType } from '../validation'
 import TabItem from './tabItem'
+import { useRegister } from '../hook/use-register'
 
 export default function FormRegister() {
 	const router = useRouter()
@@ -14,9 +15,28 @@ export default function FormRegister() {
 	const [password, setPassword] = useState(true)
 	const [confirmPassword, setConfirmPassword] = useState(true)
 
+	const { mutate } = useRegister()
 	const form = useForm<RegisterType>({
 		resolver: zodResolver(RegisterSchema),
 	})
+
+	const submit = () => {
+		const formValues = form.getValues()
+
+		mutate(
+			{
+				password: formValues.password,
+				role: tab,
+				email: formValues.email,
+				fullname: formValues.fullname,
+			},
+			{
+				onSuccess: () => {
+					router.push('/home')
+				},
+			}
+		)
+	}
 
 	return (
 		<View className='flex-1 gap-4 mt-10'>
@@ -37,7 +57,7 @@ export default function FormRegister() {
 				<View className='flex-col'>
 					<Controller
 						control={form.control}
-						name='username'
+						name='fullname'
 						render={({
 							field: { onChange, onBlur, value },
 							fieldState: { error },
@@ -193,7 +213,7 @@ export default function FormRegister() {
 				</View>
 
 				<Pressable
-					onPress={() => router.push('/home')}
+					onPress={() => submit()}
 					className='rounded-full bg-primary py-4 mt-6'
 				>
 					<Text className='text-dark text-center font-medium'>

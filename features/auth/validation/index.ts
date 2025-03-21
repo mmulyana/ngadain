@@ -12,7 +12,7 @@ export const LoginSchema = z.object({
 
 export const RegisterSchema = z
 	.object({
-		username: z
+		fullname: z
 			.string({ message: 'Username wajib diisi' })
 			.min(3, { message: 'Username minimal 3 karakter' }),
 		email: z
