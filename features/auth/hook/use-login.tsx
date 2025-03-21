@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Alert } from 'react-native'
 
 import { Keys } from '@/shared/constants/Keys'
 import { api } from '@/shared/lib/api'
+import { showErrorToast, showSuccessToast } from '@/shared/utils/toast'
 
 type Payload = {
 	username?: string
@@ -21,10 +21,10 @@ export const useLogin = () => {
 				await AsyncStorage.setItem('token', data.token)
 			}
 			queryClient.invalidateQueries({ queryKey: [Keys.Profile] })
-			Alert.alert('Welcome back')
+			showSuccessToast(data.message)
 		},
 		onError: (err) => {
-			Alert.alert(err.message)
+			showErrorToast(err.message)
 		},
 	})
 }

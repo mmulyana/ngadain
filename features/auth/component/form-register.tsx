@@ -5,8 +5,8 @@ import { Link, useRouter } from 'expo-router'
 import { useState } from 'react'
 
 import { RegisterSchema, RegisterType } from '../validation'
-import TabItem from './tabItem'
 import { useRegister } from '../hook/use-register'
+import TabItem from './tabItem'
 
 export default function FormRegister() {
 	const router = useRouter()
@@ -32,7 +32,7 @@ export default function FormRegister() {
 			},
 			{
 				onSuccess: () => {
-					router.push('/home')
+					router.replace('/home')
 				},
 			}
 		)

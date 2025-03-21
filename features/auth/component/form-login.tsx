@@ -5,18 +5,34 @@ import { LoginSchema, LoginType } from '../validation'
 import { Alert, Image, Pressable, Text, View } from 'react-native'
 import { useState } from 'react'
 import { TextInput } from 'react-native'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import { useLogin } from '../hook/use-login'
 
 export default function FormLogin() {
 	const [step, setStep] = useState(0)
 	const [mode, setMode] = useState<'email' | 'username'>('email')
 	const [eyeOpen, setEyeOpen] = useState(true)
 
+	const { mutate } = useLogin()
 	const form = useForm<LoginType>({
 		resolver: zodResolver(LoginSchema),
 	})
 
-	const onSubmit = (data: LoginType) => {}
+	const onSubmit = () => {
+		const formValues = form.getValues()
+		mutate(
+			{
+				password: formValues.password,
+				email: formValues.email,
+				username: formValues.username,
+			},
+			{
+				onSuccess: () => {
+					router.replace('/home')
+				},
+			}
+		)
+	}
 
 	let formSwith: Record<number, React.ReactNode> = {
 		0:
@@ -172,11 +188,7 @@ export default function FormLogin() {
 						}
 						return
 					}
-					Alert.alert(
-						`${form.getValues('email') || 'email'}-${
-							form.getValues('username') || 'username'
-						}-${form.getValues('password')}`
-					)
+					onSubmit()
 				}}
 				className='rounded-full bg-primary py-4 mt-6'
 			>
