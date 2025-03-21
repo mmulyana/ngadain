@@ -5,6 +5,7 @@ import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 import SafeAreaContainer from '@/shared/component/safe-area-container'
 import Feather from '@expo/vector-icons/Feather'
 import { Color } from '@/shared/constants/Color'
+import ButtonAddDoc from '@/features/event/component/button-add-doc'
 
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
@@ -103,9 +104,14 @@ export default function DetailEvent() {
 							<Text className='text-white/50 text-base'>Dokumentasi</Text>
 							<View style={{ flex: 4, gap: 4 }}></View>
 						</View>
+						
+						<Pressable className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'>
+							<Text className='text-dark text-lg font-medium'>Daftar Event</Text>
+						</Pressable>
 					</View>
 				</View>
 			</ScrollView>
+			<ButtonAddDoc onPress={() => {}} />
 		</SafeAreaContainer>
 	)
 }
