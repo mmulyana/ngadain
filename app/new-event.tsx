@@ -14,9 +14,9 @@ export default function NewEvent() {
 					<View className='relative flex-row justify-center items-center'>
 						<Pressable
 							onPress={() => router.back()}
-							className='absolute top-1.5 left-0'
+							className='absolute top-1.5 left-0 h-8 w-8 flex-row justify-center items-center'
 						>
-							<Feather name='x' size={16} color='#fff' />
+							<Feather name='x' size={20} color='#fff' />
 						</Pressable>
 						<Text className='text-white text-center text-xl'>Tambah Event</Text>
 					</View>

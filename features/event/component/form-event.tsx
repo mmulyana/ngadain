@@ -1,18 +1,10 @@
-import DatePickerInput from '@/shared/component/date-picker'
-import ImageUploader from '@/shared/component/image-uploader'
-import PickCategories from '@/shared/component/pick-categories'
-import { Color } from '@/shared/constants/Color'
-import { useState } from 'react'
+import { Pressable, Switch, Text, TextInput, View } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
-import {
-	Alert,
-	Pressable,
-	Switch,
-	Text,
-	TextInput,
-	TouchableHighlight,
-	View,
-} from 'react-native'
+import { useState } from 'react'
+
+import PickCategories from '@/shared/component/pick-categories'
+import ImageUploader from '@/shared/component/image-uploader'
+import DatePickerInput from '@/shared/component/date-picker'
 
 export default function FormEvent() {
 	const [isOnline, setIsOnline] = useState(false)
@@ -121,7 +113,6 @@ export default function FormEvent() {
 										onChangeText={onChange}
 										value={value}
 										placeholder='Link'
-										autoFocus
 										className={[
 											'py-4 px-4 bg-backgroundInput rounded-lg border placeholder:text-white/50 valid:text-white',
 											error ? 'border-red-500' : 'border-backgroundInput',
@@ -175,7 +166,6 @@ export default function FormEvent() {
 										onChangeText={onChange}
 										value={value}
 										placeholder='Link google maps'
-										autoFocus
 										className={[
 											'py-4 px-4 bg-backgroundInput rounded-lg border placeholder:text-white/50 valid:text-white',
 											error ? 'border-red-500' : 'border-backgroundInput',

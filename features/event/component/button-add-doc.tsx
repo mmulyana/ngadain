@@ -1,12 +1,14 @@
 import { Text, TouchableOpacity, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
+import { useRouter } from 'expo-router'
 
 import { Color } from '@/shared/constants/Color'
 
 type Props = {
-	onPress: () => void
+	id: string
 }
-export default function ButtonAddDoc({ onPress }: Props) {
+export default function ButtonAddDoc({ id }: Props) {
+	const router = useRouter()
 	return (
 		<TouchableOpacity
 			style={{
@@ -17,7 +19,7 @@ export default function ButtonAddDoc({ onPress }: Props) {
 				alignItems: 'center',
 			}}
 			activeOpacity={0.8}
-			onPress={onPress}
+			onPress={() => router.push(`/event/${id}/new-documentation`)}
 		>
 			<View
 				style={{

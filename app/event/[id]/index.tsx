@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import { useLocalSearchParams } from 'expo-router'
+import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
@@ -10,10 +10,12 @@ import ButtonAddDoc from '@/features/event/component/button-add-doc'
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
 
+	const router = useRouter()
+
 	return (
 		<SafeAreaContainer>
 			<ScrollView className='flex-1 bg-background'>
-				<View className='flex-1 pb-10'>
+				<View className='flex-1 pb-20'>
 					<View className='relative'>
 						<Image
 							source={require('@/assets/images/dummy.png')}
@@ -28,7 +30,10 @@ export default function DetailEvent() {
 							style={{ height: 280 }}
 						/>
 						<View className='absolute w-full flex-row justify-between top-4 px-6'>
-							<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
+							<Pressable
+								onPress={() => router.back()}
+								className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'
+							>
 								<Feather name='x' size={20} color={Color.Dark} />
 							</Pressable>
 							<View className='flex-row gap-4 items-center'>
@@ -104,14 +109,19 @@ export default function DetailEvent() {
 							<Text className='text-white/50 text-base'>Dokumentasi</Text>
 							<View style={{ flex: 4, gap: 4 }}></View>
 						</View>
-						
-						<Pressable className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'>
-							<Text className='text-dark text-lg font-medium'>Daftar Event</Text>
-						</Pressable>
+
+						<Link
+							href={`/event/${id}/register-event`}
+							className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
+						>
+							<Text className='text-dark text-lg font-medium'>
+								Daftar Event
+							</Text>
+						</Link>
 					</View>
 				</View>
 			</ScrollView>
-			<ButtonAddDoc onPress={() => {}} />
+			<ButtonAddDoc id={id as string} />
 		</SafeAreaContainer>
 	)
 }

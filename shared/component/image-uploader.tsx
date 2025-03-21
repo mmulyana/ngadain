@@ -3,7 +3,11 @@ import * as ImagePicker from 'expo-image-picker'
 import { Controller } from 'react-hook-form'
 import Feather from '@expo/vector-icons/Feather'
 
-export default function ImageUploader({ control }: any) {
+type Props = {
+	control: any
+	variant?: 'sm' | 'lg'
+}
+export default function ImageUploader({ control, variant = 'sm' }: Props) {
 	return (
 		<Controller
 			control={control}
@@ -28,27 +32,58 @@ export default function ImageUploader({ control }: any) {
 						</View>
 
 						{value?.url || value ? (
-							<View className='flex-row items-center'>
-								<Pressable onPress={pickImage}>
+							<View
+								className='relative gap-4'
+								style={{
+									flexDirection: variant === 'sm' ? 'row' : 'column',
+									alignItems: variant === 'lg' ? 'flex-start' : 'center',
+								}}
+							>
+								<Pressable
+									onPress={pickImage}
+									style={{
+										height: variant === 'sm' ? 96 : 200,
+										width: variant === 'sm' ? 96 : '100%',
+										borderRadius: variant === 'lg' ? 32 : 8,
+									}}
+								>
 									<Image
 										source={{ uri: value?.url || value }}
-										className='w-24 h-24 rounded-lg mr-3'
+										className='mr-3'
+										style={{
+											height: variant === 'sm' ? 96 : 200,
+											width: variant === 'sm' ? 96 : '100%',
+											borderRadius: variant === 'lg' ? 32 : 8,
+										}}
 									/>
 								</Pressable>
 
-								<Pressable onPress={() => onChange('')}>
-									<Text className='text-gray-400 text-sm font-medium'>
-										Hapus
+								<Pressable
+									onPress={() => onChange('')}
+									className='bg-backgroundInput px-4 py-2 rounded-full'
+								>
+									<Text className='text-primary text-sm font-medium'>
+										Hapus Gambar
 									</Text>
 								</Pressable>
 							</View>
 						) : (
 							<Pressable
-								className='w-24 h-24 border border-dashed border-border rounded-lg bg-backgroundInput flex items-center justify-center gap-1'
+								className='border border-dashed border-border rounded-lg bg-backgroundInput flex items-center justify-center gap-1'
+								style={{
+									height: variant === 'sm' ? 96 : 200,
+									width: variant === 'sm' ? 96 : '100%',
+								}}
 								onPress={pickImage}
 							>
-								<Feather name='image' size={16} color='#FFF' />
-								<Text className='text-gray-400 text-sm'>Upload</Text>
+								<Feather
+									name='image'
+									size={variant === 'lg' ? 40 : 16}
+									color='#FFF'
+								/>
+								<Text className='text-gray-400 text-sm'>
+									{variant === 'sm' ? 'Upload' : 'Upload gambar'}
+								</Text>
 							</Pressable>
 						)}
 					</View>

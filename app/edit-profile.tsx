@@ -23,6 +23,7 @@ export default function EditProfile() {
 					</Pressable>
 					<Text className='text-white text-center text-xl'>Ubah Profil</Text>
 				</View>
+				
 				<View className='mt-6 gap-6'>
 					<ImageUploader control={form.control} />
 					<Controller
