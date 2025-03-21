@@ -13,6 +13,8 @@ module.exports = {
 				background: '#212123',
 				backgroundInput: '#161616',
 				backgroundCard: '#373739',
+				border: '#373739',
+				dark: '#151516',
 			},
 		},
 	},

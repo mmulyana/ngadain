@@ -1,5 +1,5 @@
-import { Stack, Tabs } from 'expo-router'
 import Feather from '@expo/vector-icons/Feather'
+import { Stack, Tabs } from 'expo-router'
 
 export default function HomeLayout() {
 	return (
@@ -7,8 +7,8 @@ export default function HomeLayout() {
 			screenOptions={({ route }) => ({
 				tabBarStyle: {
 					backgroundColor: '#0D0D0D',
-					paddingTop: 8,
-					height: 80,
+					paddingTop: 2,
+					height: 68,
 					borderColor: '#0D0D0D',
 					alignItems: 'center',
 				},

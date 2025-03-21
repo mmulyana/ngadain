@@ -8,7 +8,7 @@ import LatestEvent from '@/features/home/component/latest-event'
 export default function Home() {
 	return (
 		<SafeAreaContainer>
-			<View className='flex-1 bg-background h-full px-6 flex-col gap-6'>
+			<View className='flex-1 bg-background gap-6 flex-col'>
 				<HomeHeader />
 				<JoinedEvent />
 				<LatestEvent />

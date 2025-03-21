@@ -27,10 +27,8 @@ export default function JoinedEvent() {
 	]
 	return (
 		<View>
-			<View className='flex-row justify-between items-center w-full mb-6'>
-				<Text className='text-base text-white'>
-					Event yang kamu ikuti
-				</Text>
+			<View className='flex-row justify-between items-center w-full mb-6 px-6'>
+				<Text className='text-base text-white'>Event yang kamu ikuti</Text>
 				<Link href='/' className='text-primary'>
 					Lihat semua
 				</Link>
@@ -40,7 +38,7 @@ export default function JoinedEvent() {
 				data={events}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <CardEvent {...item} />}
-				contentContainerStyle={{ gap: 16 }}
+				contentContainerStyle={{ gap: 16, paddingHorizontal: 24 }}
 				showsHorizontalScrollIndicator={false}
 			/>
 		</View>
