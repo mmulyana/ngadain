@@ -1,20 +1,23 @@
-import { LinearGradient } from 'expo-linear-gradient'
-import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Image, Pressable, ScrollView, Text, View } from 'react-native'
+import { Link, useLocalSearchParams, useRouter } from 'expo-router'
+import { LinearGradient } from 'expo-linear-gradient'
+import Feather from '@expo/vector-icons/Feather'
+import { useAtomValue } from 'jotai'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
-import Feather from '@expo/vector-icons/Feather'
+import { accounAtom } from '@/shared/store/account'
 import { Color } from '@/shared/constants/Color'
+
 import ButtonAddDoc from '@/features/event/component/button-add-doc'
 import { useItem } from '@/features/event/hook/use-item'
+import { BASE_URL } from '@/shared/constants/Url'
 
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
-
+	const account = useAtomValue(accounAtom)
 	const router = useRouter()
 
 	const { data } = useItem(id as string)
-	console.log('detail', data?.data.documentations)
 
 	return (
 		<SafeAreaContainer>
@@ -23,9 +26,7 @@ export default function DetailEvent() {
 					<View className='relative'>
 						<Image
 							source={{
-								uri:
-									'https://22b5-180-252-117-70.ngrok-free.app' +
-									data?.data.photoUrl,
+								uri: BASE_URL + data?.data.photoUrl,
 							}}
 							className='w-full'
 							style={{ height: 280 }}
@@ -110,6 +111,11 @@ export default function DetailEvent() {
 							<Text className='text-base text-white'>
 								{data?.data._count.participant} Pendaftar
 							</Text>
+							{account?.role === 'organizer' && (
+								<Link href={`/event/${id}/attendance`} className='text-primary'>
+									Lihat
+								</Link>
+							)}
 						</View>
 
 						<View className='gap-4'>
@@ -124,9 +130,7 @@ export default function DetailEvent() {
 									<Image
 										key={item.id}
 										source={{
-											uri:
-												'https://22b5-180-252-117-70.ngrok-free.app' +
-												item.photoUrl,
+											uri: BASE_URL + item.photoUrl,
 										}}
 										style={{
 											height: 200,
@@ -136,19 +140,31 @@ export default function DetailEvent() {
 								))}
 							</View>
 						</View>
-
-						<Link
-							href={`/event/${id}/register-event`}
-							className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
-						>
-							<Text className='text-dark text-lg font-medium'>
-								Daftar Event
-							</Text>
-						</Link>
 					</View>
 				</View>
 			</ScrollView>
-			<ButtonAddDoc id={id as string} />
+
+			{account?.role === 'organizer' ? (
+				<ButtonAddDoc id={id as string} />
+			) : (
+				<View
+					style={{
+						position: 'absolute',
+						bottom: 20,
+						left: 0,
+						right: 0,
+						alignItems: 'center',
+						paddingHorizontal: 24,
+					}}
+				>
+					<Link
+						href={`/event/${id}/register-event`}
+						className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
+					>
+						<Text className='text-dark text-lg font-medium'>Daftar Event</Text>
+					</Link>
+				</View>
+			)}
 		</SafeAreaContainer>
 	)
 }

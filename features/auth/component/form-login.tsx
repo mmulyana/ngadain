@@ -67,7 +67,7 @@ export default function FormLogin() {
 							</View>
 						)}
 					/>
-					<Pressable
+					{/* <Pressable
 						onPress={() => {
 							setMode('username')
 							form.clearErrors('username')
@@ -79,7 +79,7 @@ export default function FormLogin() {
 						className='justify-end flex-row text-left mt-4'
 					>
 						<Text className='text-primary'>Masuk dengan username</Text>
-					</Pressable>
+					</Pressable> */}
 				</View>
 			) : (
 				<View className='flex-col'>

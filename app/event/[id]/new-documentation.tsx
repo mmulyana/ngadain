@@ -1,11 +1,12 @@
 import { Pressable, Text, TextInput, View } from 'react-native'
 import { useLocalSearchParams, useRouter } from 'expo-router'
+import { Controller, useForm } from 'react-hook-form'
 import Feather from '@expo/vector-icons/Feather'
 
-import SafeAreaContainer from '@/shared/component/safe-area-container'
-import { Controller, useForm } from 'react-hook-form'
-import ImageUploader from '@/shared/component/image-uploader'
 import { useCreateDoc } from '@/features/event/hook/use-create-doc'
+
+import SafeAreaContainer from '@/shared/component/safe-area-container'
+import ImageUploader from '@/shared/component/image-uploader'
 
 export default function NewDocumentation() {
 	const router = useRouter()

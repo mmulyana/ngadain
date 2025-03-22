@@ -1,14 +1,29 @@
 import { Pressable, Text, TextInput, View } from 'react-native'
-import { useRouter } from 'expo-router'
+import { Controller, useForm } from 'react-hook-form'
 import Feather from '@expo/vector-icons/Feather'
+import { useRouter } from 'expo-router'
+import { useAtomValue } from 'jotai'
+import { useEffect } from 'react'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
-import { Controller, useForm } from 'react-hook-form'
+import { accounAtom } from '@/shared/store/account'
 
 export default function NewDocumentation() {
 	const router = useRouter()
+	const account = useAtomValue(accounAtom)
 
 	const form = useForm()
+
+	useEffect(() => {
+		if (!account) return
+
+		form.reset({
+			email: account.email,
+			fullname: account.fullname,
+		})
+
+		return () => form.reset()
+	}, [account])
 
 	return (
 		<SafeAreaContainer>
@@ -25,7 +40,7 @@ export default function NewDocumentation() {
 				<View className='mt-6 gap-6'>
 					<Controller
 						control={form.control}
-						name='name'
+						name='fullname'
 						render={({
 							field: { onChange, onBlur, value },
 							fieldState: { error },
@@ -53,7 +68,7 @@ export default function NewDocumentation() {
 
 					<Controller
 						control={form.control}
-						name='description'
+						name='email'
 						render={({
 							field: { onChange, onBlur, value },
 							fieldState: { error },

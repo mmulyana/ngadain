@@ -1,10 +1,15 @@
 import { Pressable, Text, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
-import { Color } from '@/shared/constants/Color'
 import { useRouter } from 'expo-router'
+import { useAtomValue } from 'jotai'
+
+import { accounAtom } from '@/shared/store/account'
+import { Color } from '@/shared/constants/Color'
 
 export default function UserInfo() {
+	const account = useAtomValue(accounAtom)
 	const router = useRouter()
+
 	return (
 		<View className='px-6 mt-6 gap-6'>
 			<View className='flex-row justify-between items-center'>
@@ -28,15 +33,15 @@ export default function UserInfo() {
 				<View className='gap-6'>
 					<View className='flex-row justify-between items-center'>
 						<Text className='text-white'>Nama Lengkap</Text>
-						<Text className='text-white/50'>Muhamad Mulyana</Text>
+						<Text className='text-white/50'>{account?.fullname}</Text>
 					</View>
 					<View className='flex-row justify-between items-center'>
 						<Text className='text-white'>Username</Text>
-						<Text className='text-white/50'>mmulyana</Text>
+						<Text className='text-white/50'>{account?.username}</Text>
 					</View>
 					<View className='flex-row justify-between items-center'>
 						<Text className='text-white'>Email</Text>
-						<Text className='text-white/50'>mulyan@mail.com</Text>
+						<Text className='text-white/50'>{account?.email}</Text>
 					</View>
 				</View>
 			</View>

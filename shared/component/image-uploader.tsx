@@ -53,7 +53,7 @@ export default function ImageUploader({ control, variant = 'sm' }: Props) {
 										style={{
 											height: variant === 'sm' ? 96 : 200,
 											width: variant === 'sm' ? 96 : '100%',
-											borderRadius: variant === 'sm' ? 32 : 8,
+											borderRadius: variant === 'lg' ? 32 : 8,
 										}}
 									/>
 								</Pressable>

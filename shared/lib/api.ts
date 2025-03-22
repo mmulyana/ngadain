@@ -1,5 +1,4 @@
+import { BASE_URL } from '../constants/Url'
 import { HttpClient } from './http'
 
-export const api = new HttpClient(
-	'https://22b5-180-252-117-70.ngrok-free.app/api'
-)
+export const api = new HttpClient(BASE_URL + '/api')
