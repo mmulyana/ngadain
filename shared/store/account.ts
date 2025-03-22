@@ -5,6 +5,7 @@ type User = {
 	username: string
 	email: string
 	role: string
-	photoUrl: string
+	photoUrl: string | null
+	fullname: string
 }
 export const accounAtom = atom<User | null>(null)

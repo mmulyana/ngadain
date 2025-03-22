@@ -56,7 +56,7 @@ export default function FormEvent() {
 		if (data.image) {
 			const imageUri = data.image.uri || data.image
 			const fileType = imageUri.split('.').pop()
-			formData.append('photoUrl', {
+			formData.append('image', {
 				uri: imageUri,
 				name: `photo.${fileType}`,
 				type: `image/${fileType}`,
@@ -64,7 +64,10 @@ export default function FormEvent() {
 		}
 
 		mutate(formData, {
-			onSuccess: () => router.replace('/'),
+			onSuccess: () => {
+				router.back()
+				form.reset()
+			},
 		})
 	}
 

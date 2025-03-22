@@ -2,8 +2,11 @@ import { ImageBackground, Pressable, Text, View } from 'react-native'
 import { Link } from 'expo-router'
 
 import Logo from '@/shared/component/logo'
+import useCheckAccount from '@/features/auth/hook/use-check-account'
 
 export default function Index() {
+	useCheckAccount()
+	
 	return (
 		<ImageBackground
 			source={require('@/assets/images/background.png')}

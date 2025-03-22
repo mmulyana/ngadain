@@ -54,7 +54,7 @@ export class HttpClient {
 
 			if (options.auth) {
 				const token = await AsyncStorage.getItem(StorageKeys.Token)
-				// console.log('__TOKEN__', token)
+				console.log('__TOKEN__', token)
 				if (token) {
 					headers['Authorization'] = `Bearer ${token}`
 				}
@@ -82,8 +82,8 @@ export class HttpClient {
 
 			if (contentType && contentType.includes('application/json')) {
 				const responseData = await response.json()
-				// console.log('___RESPONSE STATUS__', response.status)
-				// console.log('___RESULT__', responseData)
+				console.log('___RESPONSE STATUS__', response.status)
+				console.log('___RESULT__', responseData)
 
 				if (!response.ok) {
 					// console.error(

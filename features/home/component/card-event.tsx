@@ -4,17 +4,27 @@ import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
 
 type Props = {
-	id: string
-	name: string
-	photoUrl: string
-	date: string
+	address: string
 	category: string
-	username: string
-	userPhotoUrl: string
+	date: string
+	description: string
+	id: string
+	isOnline: boolean
+	linkUrl: null | string
+	mapUrl: null | string
+	name: string
+	photoUrl: null | string
+	userId: string
+	_count: {
+		participant?: number
+	}
+	user: {
+		id: string
+		username: string
+		photoUrl: string
+	}
+	isJoin?: boolean
 	variant: any
-	showEdit?: boolean
-	address?: string
-	participant?: number
 }
 export default function CardEvent({
 	id,
@@ -22,12 +32,11 @@ export default function CardEvent({
 	photoUrl,
 	date,
 	category,
-	userPhotoUrl,
-	username,
 	variant,
-	showEdit = false,
 	address,
-	participant,
+	_count,
+	user,
+	isJoin = false,
 }: Props) {
 	const router = useRouter()
 	if (variant === 'sm') {
@@ -39,9 +48,9 @@ export default function CardEvent({
 				<View className='h-10 px-2 w-full flex-row items-center justify-between'>
 					<View className='flex-row gap-2 items-center'>
 						<View className='h-6 w-6 rounded-full bg-gray-100 flex items-center justify-center'>
-							<Text>{username.at(0)}</Text>
+							<Text>{user?.username.at(0)}</Text>
 						</View>
-						<Text className='text-sm text-white'>{username}</Text>
+						<Text className='text-sm text-white'>{user?.username}</Text>
 					</View>
 				</View>
 				<View className='w-full h-[180px] relative'>
@@ -57,7 +66,7 @@ export default function CardEvent({
 					/>
 					<View className='flex-col justify-between px-4 py-4 absolute h-full w-full'>
 						<View className='flex-row justify-end'>
-							{!showEdit && (
+							{isJoin && (
 								<View className='rounded-full bg-background px-3 py-1'>
 									<Text className='text-primary'>8 hari lagi</Text>
 								</View>
@@ -82,10 +91,10 @@ export default function CardEvent({
 		>
 			<View className='h-6 w-full flex-row items-center justify-between'>
 				<View className='flex-row gap-2 items-center'>
-					<View className='h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center'>
-						<Text>{username.at(0)}</Text>
+					<View className='h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center uppercase'>
+						<Text>{user?.username.at(0)}</Text>
 					</View>
-					<Text className='text-sm text-white'>{username}</Text>
+					<Text className='text-sm text-white'>{user?.username}</Text>
 				</View>
 			</View>
 			<View className='gap-4 items-center flex-row mt-3.5' style={{ flex: 2 }}>
@@ -126,7 +135,9 @@ export default function CardEvent({
 					</View>
 					<View className='flex-row gap-2 items-center'>
 						<Feather name='users' size={16} color='#8F8F90' />
-						<Text className='text-white/80 text-base'>200 Pendaftar</Text>
+						<Text className='text-white/80 text-base'>
+							{_count.participant} Pendaftar
+						</Text>
 					</View>
 				</View>
 			</View>

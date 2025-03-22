@@ -6,11 +6,14 @@ import SafeAreaContainer from '@/shared/component/safe-area-container'
 import Feather from '@expo/vector-icons/Feather'
 import { Color } from '@/shared/constants/Color'
 import ButtonAddDoc from '@/features/event/component/button-add-doc'
+import { useItem } from '@/features/event/hook/use-item'
 
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
 
 	const router = useRouter()
+
+	const { data } = useItem(id as string)
 
 	return (
 		<SafeAreaContainer>
@@ -47,11 +50,11 @@ export default function DetailEvent() {
 						</View>
 						<View className='absolute w-full flex items-start gap-2 justify-between bottom-4 px-6'>
 							<View className='bg-white/20 rounded-full blur-md px-3 py-1'>
-								<Text className='text-white text-base'>Teknologi</Text>
+								<Text className='text-white text-base'>
+									{data?.data.category}
+								</Text>
 							</View>
-							<Text className='text-xl text-white'>
-								Jogjajs meetup february 2023
-							</Text>
+							<Text className='text-xl text-white'>{data?.data.name}</Text>
 						</View>
 					</View>
 
@@ -60,17 +63,16 @@ export default function DetailEvent() {
 							<Text className='text-white/50 text-base'>Penyelenggara</Text>
 							<View className='flex-row gap-2 items-center'>
 								<View className='h-10 w-10 rounded-full bg-backgroundInput'></View>
-								<Text className='text-white text-base'>Jogjajs</Text>
+								<Text className='text-white text-base'>
+									{data?.data.user.username}
+								</Text>
 							</View>
 						</View>
 
 						<View className='gap-4'>
 							<Text className='text-white/50 text-base'>Deskripsi</Text>
 							<Text className='text-white text-base'>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-								atque enim nulla ipsum non aspernatur minus deleniti provident
-								quod temporibus sapiente quidem unde porro quas laborum quis,
-								iusto ipsa quisquam.
+								{data?.data.description}
 							</Text>
 						</View>
 
@@ -81,9 +83,7 @@ export default function DetailEvent() {
 								color='#fff'
 								style={{ opacity: 0.5 }}
 							/>
-							<Text className='text-base text-white'>
-								Jl. Paraenom No 15, Patangpuluhan, Wirobrajan, Yogyakarta
-							</Text>
+							<Text className='text-base text-white'>{data?.data.address}</Text>
 						</View>
 
 						<View className='flex-row gap-4 items-center'>
@@ -93,7 +93,7 @@ export default function DetailEvent() {
 								color='#fff'
 								style={{ opacity: 0.5 }}
 							/>
-							<Text className='text-base text-white'>2 Februari 2023</Text>
+							<Text className='text-base text-white'>{data?.data.date}</Text>
 						</View>
 						<View className='flex-row gap-4 items-center'>
 							<Feather
@@ -102,7 +102,9 @@ export default function DetailEvent() {
 								color='#fff'
 								style={{ opacity: 0.5 }}
 							/>
-							<Text className='text-base text-white'>200 Pendaftar</Text>
+							<Text className='text-base text-white'>
+								{data?.data._count.participant} Pendaftar
+							</Text>
 						</View>
 
 						<View className='gap-4'>

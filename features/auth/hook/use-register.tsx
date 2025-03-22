@@ -4,6 +4,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { showErrorToast, showSuccessToast } from '@/shared/utils/toast'
 import { Keys } from '@/shared/constants/Keys'
 import { api } from '@/shared/lib/api'
+import { accounAtom } from '@/shared/store/account'
+import { useSetAtom } from 'jotai'
+import { StorageKeys } from '@/shared/constants/StorageKeys'
 
 type Payload = {
 	fullname?: string
@@ -12,15 +15,17 @@ type Payload = {
 	role: string
 }
 export const useRegister = () => {
+	const setAccount = useSetAtom(accounAtom)
 	const queryClient = useQueryClient()
 	return useMutation({
 		mutationFn: async (payload: Payload): Promise<any> => {
 			return await api.post('/auth/register', payload)
 		},
 		onSuccess: async (data) => {
+			setAccount(data.data.user)
 			showSuccessToast(data.message)
-			if (data.token) {
-				await AsyncStorage.setItem('token', data.token)
+			if (data.data.token) {
+				await AsyncStorage.setItem(StorageKeys.Token, data.data.token)
 			}
 			queryClient.invalidateQueries({ queryKey: [Keys.Profile] })
 		},

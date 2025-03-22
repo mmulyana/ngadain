@@ -4,6 +4,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keys } from '@/shared/constants/Keys'
 import { api } from '@/shared/lib/api'
 import { showErrorToast, showSuccessToast } from '@/shared/utils/toast'
+import { useSetAtom } from 'jotai'
+import { accounAtom } from '@/shared/store/account'
+import { StorageKeys } from '@/shared/constants/StorageKeys'
 
 type Payload = {
 	username?: string
@@ -11,14 +14,17 @@ type Payload = {
 	password: string
 }
 export const useLogin = () => {
+	const setAccount = useSetAtom(accounAtom)
 	const queryClient = useQueryClient()
 	return useMutation({
 		mutationFn: async (payload: Payload): Promise<any> => {
 			return await api.post('/auth/login', payload)
 		},
 		onSuccess: async (data) => {
-			if (data.token) {
-				await AsyncStorage.setItem('token', data.token)
+			setAccount(data.data.user)
+			console.log('login', data.data)
+			if (data.data.token) {
+				await AsyncStorage.setItem(StorageKeys.Token, data.data.token)
 			}
 			queryClient.invalidateQueries({ queryKey: [Keys.Profile] })
 			showSuccessToast(data.message)

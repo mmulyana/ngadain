@@ -1,4 +1,5 @@
 export const Keys = {
 	Profile: 'profile',
-	Events: 'events'
+	Events: 'events',
+	Event: 'event',
 }
