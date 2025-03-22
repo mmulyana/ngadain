@@ -1,16 +1,42 @@
 import { Pressable, Text, TextInput, View } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import Feather from '@expo/vector-icons/Feather'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
 import { Controller, useForm } from 'react-hook-form'
 import ImageUploader from '@/shared/component/image-uploader'
+import { useCreateDoc } from '@/features/event/hook/use-create-doc'
 
 export default function NewDocumentation() {
 	const router = useRouter()
+	const { id } = useLocalSearchParams()
 
+	const { mutate } = useCreateDoc(id as string)
 	const form = useForm()
 
+	const submit = () => {
+		const data = form.getValues() as any
+
+		const formData = new FormData()
+		formData.append('description', data.description)
+		formData.append('eventId', id as string)
+		if (data.image) {
+			const imageUri = data.image.uri || data.image
+			const fileType = imageUri.split('.').pop()
+			formData.append('image', {
+				uri: imageUri,
+				name: `photo.${fileType}`,
+				type: `image/${fileType}`,
+			} as any)
+		}
+
+		mutate(formData, {
+			onSuccess: () => {
+				form.reset()
+				router.replace(`/event/${id}`)
+			},
+		})
+	}
 	return (
 		<SafeAreaContainer>
 			<View className='flex-1 bg-background px-6 pt-4 pb-10'>
@@ -57,7 +83,10 @@ export default function NewDocumentation() {
 							</View>
 						)}
 					/>
-					<Pressable className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'>
+					<Pressable
+						onPress={() => submit()}
+						className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
+					>
 						<Text className='text-dark text-lg font-medium'>Simpan</Text>
 					</Pressable>
 				</View>

@@ -22,6 +22,13 @@ export type Event = {
 		username: string
 		photoUrl: string
 	}
+	documentations: {
+		date: string
+		description: string
+		eventId: string
+		id: string
+		photoUrl: string
+	}[]
 }
 export const useItem = (id?: string) => {
 	return useQuery({

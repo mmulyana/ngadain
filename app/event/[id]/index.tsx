@@ -14,6 +14,7 @@ export default function DetailEvent() {
 	const router = useRouter()
 
 	const { data } = useItem(id as string)
+	console.log('detail', data?.data.documentations)
 
 	return (
 		<SafeAreaContainer>
@@ -21,7 +22,11 @@ export default function DetailEvent() {
 				<View className='flex-1 pb-20'>
 					<View className='relative'>
 						<Image
-							source={require('@/assets/images/dummy.png')}
+							source={{
+								uri:
+									'https://22b5-180-252-117-70.ngrok-free.app' +
+									data?.data.photoUrl,
+							}}
 							className='w-full'
 							style={{ height: 280 }}
 						/>
@@ -109,7 +114,27 @@ export default function DetailEvent() {
 
 						<View className='gap-4'>
 							<Text className='text-white/50 text-base'>Dokumentasi</Text>
-							<View style={{ flex: 4, gap: 4 }}></View>
+							<View
+								style={{
+									flex: 2,
+									gap: 8,
+								}}
+							>
+								{data?.data.documentations?.map((item) => (
+									<Image
+										key={item.id}
+										source={{
+											uri:
+												'https://22b5-180-252-117-70.ngrok-free.app' +
+												item.photoUrl,
+										}}
+										style={{
+											height: 200,
+											flex: 1,
+										}}
+									/>
+								))}
+							</View>
 						</View>
 
 						<Link
