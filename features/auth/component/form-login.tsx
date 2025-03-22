@@ -1,11 +1,11 @@
+import { Image, Pressable, Text, View } from 'react-native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
+import { Link, router } from 'expo-router'
+import { TextInput } from 'react-native'
+import { useState } from 'react'
 
 import { LoginSchema, LoginType } from '../validation'
-import { Alert, Image, Pressable, Text, View } from 'react-native'
-import { useState } from 'react'
-import { TextInput } from 'react-native'
-import { Link, router } from 'expo-router'
 import { useLogin } from '../hook/use-login'
 
 export default function FormLogin() {
@@ -29,6 +29,7 @@ export default function FormLogin() {
 			{
 				onSuccess: () => {
 					router.replace('/home')
+					form.reset()
 				},
 			}
 		)

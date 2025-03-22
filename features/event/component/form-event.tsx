@@ -5,11 +5,20 @@ import { useState } from 'react'
 import PickCategories from '@/shared/component/pick-categories'
 import ImageUploader from '@/shared/component/image-uploader'
 import DatePickerInput from '@/shared/component/date-picker'
+import { useCreateEvent } from '../hook/use-create-event'
+import { useAtomValue } from 'jotai'
+import { accounAtom } from '@/shared/store/account'
+import { showErrorToast } from '@/shared/utils/toast'
+import { useRouter } from 'expo-router'
 
 export default function FormEvent() {
+	const router = useRouter()
+
+	const account = useAtomValue(accounAtom)
 	const [isOnline, setIsOnline] = useState(false)
 	const [category, setCategory] = useState('')
 
+	const { mutate } = useCreateEvent()
 	const form = useForm({
 		defaultValues: {
 			name: '',
@@ -22,8 +31,41 @@ export default function FormEvent() {
 	})
 
 	const submit = () => {
-		const formValues = form.getValues()
-		console.log('data', formValues)
+		if (!account?.id) {
+			showErrorToast('Harus login dulu')
+			return
+		}
+
+		const data = form.getValues() as any
+
+		const formData = new FormData()
+		formData.append('userId', account.id)
+		formData.append('name', data.name)
+		formData.append('description', data.description)
+		formData.append('date', data.date)
+		formData.append('category', category)
+		formData.append('isOnline', isOnline.toString())
+
+		if (isOnline) {
+			formData.append('linkUrl', data.linkUrl)
+		} else {
+			formData.append('address', data.address)
+			formData.append('mapUrl', data.mapUrl)
+		}
+
+		if (data.image) {
+			const imageUri = data.image.uri || data.image
+			const fileType = imageUri.split('.').pop()
+			formData.append('photoUrl', {
+				uri: imageUri,
+				name: `photo.${fileType}`,
+				type: `image/${fileType}`,
+			} as any)
+		}
+
+		mutate(formData, {
+			onSuccess: () => router.replace('/'),
+		})
 	}
 
 	return (

@@ -33,6 +33,7 @@ export default function FormRegister() {
 			{
 				onSuccess: () => {
 					router.replace('/home')
+					form.reset()
 				},
 			}
 		)
