@@ -52,7 +52,10 @@ export default function DetailEvent() {
 								<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
 									<Feather name='edit-2' size={20} color={Color.Dark} />
 								</Pressable>
-								<Pressable className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'>
+								<Pressable
+									onPress={() => router.push(`/event/${id}/report`)}
+									className='h-10 w-10 rounded-full bg-white flex-row justify-center items-center shadow-lg'
+								>
 									<Feather name='bar-chart' size={20} color={Color.Dark} />
 								</Pressable>
 							</View>
