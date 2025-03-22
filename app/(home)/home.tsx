@@ -9,8 +9,8 @@ import LatestEvent from '@/features/home/component/latest-event'
 export default function Home() {
 	return (
 		<SafeAreaContainer>
-			<ScrollView>
-				<View className='flex-1 bg-background gap-6 flex-col pb-5'>
+			<ScrollView className='bg-background'>
+				<View className='flex-1 gap-6 flex-col pb-5'>
 					<Header />
 					<JoinedEvent />
 					<LatestEvent />

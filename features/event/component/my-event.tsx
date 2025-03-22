@@ -3,9 +3,12 @@ import { Link } from 'expo-router'
 
 import CardEvent from '@/features/home/component/card-event'
 import { useItems } from '../hook/use-items'
+import { useAtomValue } from 'jotai'
+import { accounAtom } from '@/shared/store/account'
 
 export default function MyEvent() {
-	const { data } = useItems()
+	const account = useAtomValue(accounAtom)
+	const { data } = useItems(account?.id)
 
 	return (
 		<View>

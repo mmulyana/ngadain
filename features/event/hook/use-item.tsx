@@ -15,7 +15,7 @@ export type Event = {
 	photoUrl: null | string
 	userId: string
 	_count: {
-		participant?: number
+		participants?: number
 	}
 	user: {
 		id: string

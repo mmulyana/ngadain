@@ -1,17 +1,19 @@
 import { Pressable, Text, TextInput, View } from 'react-native'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Controller, useForm } from 'react-hook-form'
 import Feather from '@expo/vector-icons/Feather'
-import { useRouter } from 'expo-router'
 import { useAtomValue } from 'jotai'
 import { useEffect } from 'react'
 
 import SafeAreaContainer from '@/shared/component/safe-area-container'
 import { accounAtom } from '@/shared/store/account'
+import { useRegisterEvent } from '@/features/event/hook/use-register-event'
 
 export default function NewDocumentation() {
 	const router = useRouter()
 	const account = useAtomValue(accounAtom)
-
+	const { id } = useLocalSearchParams()
+	const { mutate } = useRegisterEvent()
 	const form = useForm()
 
 	useEffect(() => {
@@ -25,6 +27,23 @@ export default function NewDocumentation() {
 		return () => form.reset()
 	}, [account])
 
+	const onSubmit = () => {
+		const data = form.getValues()
+		mutate(
+			{
+				userId: account?.id,
+				email: data.email,
+				fullname: data.fullname,
+				eventId: id,
+			},
+			{
+				onSuccess: () => {
+					router.replace(`/event/${id}`)
+				},
+			}
+		)
+	}
+
 	return (
 		<SafeAreaContainer>
 			<View className='flex-1 bg-background px-6 pt-4 pb-10'>
@@ -37,6 +56,7 @@ export default function NewDocumentation() {
 					</Pressable>
 					<Text className='text-white text-center text-xl'>Daftar event</Text>
 				</View>
+				<Text className='mt-6 text-white/50'>Informasi Peserta</Text>
 				<View className='mt-6 gap-6'>
 					<Controller
 						control={form.control}
@@ -93,7 +113,10 @@ export default function NewDocumentation() {
 						)}
 					/>
 
-					<Pressable className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'>
+					<Pressable
+						onPress={onSubmit}
+						className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
+					>
 						<Text className='text-dark text-lg font-medium'>Daftar</Text>
 					</Pressable>
 				</View>

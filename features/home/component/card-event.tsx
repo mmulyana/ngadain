@@ -2,6 +2,7 @@ import { Image, Pressable, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
+import { BASE_URL } from '@/shared/constants/Url'
 
 type Props = {
 	address: string
@@ -16,7 +17,7 @@ type Props = {
 	photoUrl: null | string
 	userId: string
 	_count: {
-		participant?: number
+		participants?: number
 	}
 	user: {
 		id: string
@@ -54,10 +55,19 @@ export default function CardEvent({
 					</View>
 				</View>
 				<View className='w-full h-[180px] relative'>
-					<Image
-						source={require('@/assets/images/dummy.png')}
-						className='w-full h-[185px] rounded-b-[14px]'
-					/>
+					{photoUrl ? (
+						<Image
+							source={{
+								uri: BASE_URL + photoUrl,
+							}}
+							className='w-full'
+							style={{ height: 280 }}
+						/>
+					) : (
+						<View className='w-full h-[185px] rounded-b-[14px] flex-row justify-center items-center'>
+							<Feather name='image' size={24} color='#fff' />
+						</View>
+					)}
 					<LinearGradient
 						colors={['rgba(33,33,35,0.8)', 'rgba(33,33,35,0)']}
 						start={{ x: 0, y: 1 }}
@@ -102,10 +112,19 @@ export default function CardEvent({
 					className='basis-[16px] h-full relative overflow-hidden rounded-[14px]'
 					style={{ flex: 1 }}
 				>
-					<Image
-						source={require('@/assets/images/dummy.png')}
-						className='w-full h-full rounded-[14px]'
-					/>
+					{photoUrl ? (
+						<Image
+							source={{
+								uri: BASE_URL + photoUrl,
+							}}
+							className='w-full h-full rounded-[14px]'
+						/>
+					) : (
+						<View className='w-full h-full rounded-[14px] flex-row justify-center items-center'>
+							<Feather name='image' size={24} color='#fff' />
+						</View>
+					)}
+
 					<LinearGradient
 						colors={['rgba(33,33,35,0.8)', 'rgba(33,33,35,0)']}
 						start={{ x: 0, y: 1 }}
@@ -136,7 +155,7 @@ export default function CardEvent({
 					<View className='flex-row gap-2 items-center'>
 						<Feather name='users' size={16} color='#8F8F90' />
 						<Text className='text-white/80 text-base'>
-							{_count.participant} Pendaftar
+							{_count.participants} Pendaftar
 						</Text>
 					</View>
 				</View>

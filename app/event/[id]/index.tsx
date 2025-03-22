@@ -11,6 +11,7 @@ import { Color } from '@/shared/constants/Color'
 import ButtonAddDoc from '@/features/event/component/button-add-doc'
 import { useItem } from '@/features/event/hook/use-item'
 import { BASE_URL } from '@/shared/constants/Url'
+import { useCheckParticipant } from '@/features/event/hook/use-check-event'
 
 export default function DetailEvent() {
 	const { id } = useLocalSearchParams()
@@ -18,6 +19,8 @@ export default function DetailEvent() {
 	const router = useRouter()
 
 	const { data } = useItem(id as string)
+	const { data: check } = useCheckParticipant(id as string)
+	console.log('__CHECK__', check)
 
 	return (
 		<SafeAreaContainer>
@@ -109,7 +112,7 @@ export default function DetailEvent() {
 								style={{ opacity: 0.5 }}
 							/>
 							<Text className='text-base text-white'>
-								{data?.data._count.participant} Pendaftar
+								{data?.data._count.participants} Pendaftar
 							</Text>
 							{account?.role === 'organizer' &&
 								data?.data.userId === account.id && (
@@ -148,9 +151,33 @@ export default function DetailEvent() {
 				</View>
 			</ScrollView>
 
-			{account?.role === 'organizer' ? (
+			{data?.data.userId === account?.id ? (
 				<ButtonAddDoc id={id as string} />
 			) : (
+				account?.role !== 'organizer' &&
+				check?.data.status == 'not_register' && (
+					<View
+						style={{
+							position: 'absolute',
+							bottom: 20,
+							left: 0,
+							right: 0,
+							alignItems: 'center',
+							paddingHorizontal: 24,
+						}}
+					>
+						<Link
+							href={`/event/${id}/register-event`}
+							className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
+						>
+							<Text className='text-dark text-lg font-medium'>
+								Daftar Event
+							</Text>
+						</Link>
+					</View>
+				)
+			)}
+			{account?.role !== 'organizer' && check?.data.status === 'done' && (
 				<View
 					style={{
 						position: 'absolute',
@@ -162,10 +189,12 @@ export default function DetailEvent() {
 					}}
 				>
 					<Link
-						href={`/event/${id}/register-event`}
+						href={`/event/${id}/feedback`}
 						className='mt-4 rounded-full py-4 w-full flex text-center justify-center items-center bg-primary'
 					>
-						<Text className='text-dark text-lg font-medium'>Daftar Event</Text>
+						<Text className='text-dark text-lg font-medium'>
+							Berikan Feedback
+						</Text>
 					</Link>
 				</View>
 			)}

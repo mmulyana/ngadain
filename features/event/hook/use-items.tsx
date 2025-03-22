@@ -15,7 +15,7 @@ export type Event = {
 	photoUrl: null | string
 	userId: string
 	_count: {
-		participant?: number
+		participants?: number
 	}
 	user: {
 		id: string
@@ -23,12 +23,15 @@ export type Event = {
 		photoUrl: string
 	}
 }
-export const useItems = () => {
+export const useItems = (userId?: string) => {
+	const params = {
+		...(userId && { userId }),
+	}
 	return useQuery({
-		queryKey: [Keys.Events],
+		queryKey: [Keys.Events, userId],
 		queryFn: async (): Promise<{ data: Event[] }> => {
 			return await api.get('/event', {
-				auth: true,
+				params,
 			})
 		},
 	})
