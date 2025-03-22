@@ -7,7 +7,7 @@ export const useUpdateProfile = () => {
 	const queryClient = useQueryClient()
 	return useMutation({
 		mutationFn: async (payload: any): Promise<any> => {
-			return await api.post('/profile', payload, {
+			return await api.patch('/account/update', payload, {
 				auth: true,
 				headers: {
 					'Content-Type': 'multipart/form-data',

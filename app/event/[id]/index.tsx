@@ -111,11 +111,15 @@ export default function DetailEvent() {
 							<Text className='text-base text-white'>
 								{data?.data._count.participant} Pendaftar
 							</Text>
-							{account?.role === 'organizer' && (
-								<Link href={`/event/${id}/attendance`} className='text-primary'>
-									Lihat
-								</Link>
-							)}
+							{account?.role === 'organizer' &&
+								data?.data.userId === account.id && (
+									<Link
+										href={`/event/${id}/attendance`}
+										className='text-primary'
+									>
+										Lihat
+									</Link>
+								)}
 						</View>
 
 						<View className='gap-4'>

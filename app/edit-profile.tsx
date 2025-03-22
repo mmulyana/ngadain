@@ -2,8 +2,8 @@ import { Pressable, Text, TextInput, View } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
 import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
-import { useAtomValue } from 'jotai'
 import { useEffect } from 'react'
+import { useAtom } from 'jotai'
 
 import { useUpdateProfile } from '@/features/profile/hook/use-update-profile'
 
@@ -13,7 +13,7 @@ import { accounAtom } from '@/shared/store/account'
 
 export default function EditProfile() {
 	const router = useRouter()
-	const account = useAtomValue(accounAtom)
+	const [account, setAccount] = useAtom(accounAtom)
 
 	const { mutate } = useUpdateProfile()
 	const form = useForm()
@@ -31,12 +31,15 @@ export default function EditProfile() {
 	}, [account])
 
 	const submit = () => {
+		if (!account) return
+
 		const data = form.getValues() as any
 
 		const formData = new FormData()
 		formData.append('fullname', data.fullname)
 		formData.append('username', data.username)
 		formData.append('email', data.email)
+		formData.append('id', account?.id)
 
 		if (data.image) {
 			const imageUri = data.image.uri || data.image
@@ -49,8 +52,16 @@ export default function EditProfile() {
 		}
 
 		mutate(formData, {
-			onSuccess: () => {
+			onSuccess: (data: any) => {
 				router.replace('/profile')
+				setAccount({
+					fullname: data.data.fullname,
+					username: data.data.username,
+					email: data.data.email,
+					photoUrl: data.data.photoUrl,
+					id: data.data.id,
+					role: data.data.role,
+				})
 			},
 		})
 	}

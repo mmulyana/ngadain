@@ -1,10 +1,11 @@
-import { Pressable, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
 import { useAtomValue } from 'jotai'
 
 import { accounAtom } from '@/shared/store/account'
 import { Color } from '@/shared/constants/Color'
+import { BASE_URL } from '@/shared/constants/Url'
 
 export default function UserInfo() {
 	const account = useAtomValue(accounAtom)
@@ -22,12 +23,22 @@ export default function UserInfo() {
 					<Text className='text-primary'>Ubah</Text>
 				</Pressable>
 			</View>
-			<View
-				className='bg-dark flex-row rounded-full justify-center items-center'
-				style={{ height: 104, width: 104 }}
-			>
-				<Feather name='image' size={32} color='#fff' />
-			</View>
+			{account?.photoUrl ? (
+				<Image
+					source={{
+						uri: BASE_URL + account.photoUrl,
+					}}
+					style={{ height: 104, width: 104 }}
+					className='rounded-full'
+				/>
+			) : (
+				<View
+					className='bg-dark flex-row rounded-full justify-center items-center'
+					style={{ height: 104, width: 104 }}
+				>
+					<Feather name='image' size={32} color='#fff' />
+				</View>
+			)}
 			<View>
 				<Text className='text-white/50 mb-4'>Informasi</Text>
 				<View className='gap-6'>

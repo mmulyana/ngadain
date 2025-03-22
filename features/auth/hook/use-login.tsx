@@ -22,7 +22,6 @@ export const useLogin = () => {
 		},
 		onSuccess: async (data) => {
 			setAccount(data.data.user)
-			console.log('login', data.data)
 			if (data.data.token) {
 				await AsyncStorage.setItem(StorageKeys.Token, data.data.token)
 			}
